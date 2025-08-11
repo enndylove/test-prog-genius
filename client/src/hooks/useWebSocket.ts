@@ -8,6 +8,11 @@ export function useWebSocket(url: string) {
   useEffect(() => {
     const socketInstance = io(url, {
       transports: ["websocket"],
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,
+      reconnectionDelayMax: 5000,
+      timeout: 20000,
     })
 
     socketInstance.on("connect", () => {

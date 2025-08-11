@@ -65,6 +65,9 @@ export function LiveTypingSpeed({ recentPresses }: LiveTypingSpeedProps) {
           </div>
           <div className="bg-muted/30 rounded-lg p-3">
             <div className="text-lg font-semibold">{Math.max(change, 0)}</div>
+            <div className={`text-lg font-semibold ${change < 0 ? 'text-red-500' : change > 0 ? 'text-green-500' : ''}`}>
+              {change > 0 ? '+' : ''}{change}
+            </div>
             <div className="text-xs text-muted-foreground">Change</div>
           </div>
         </div>

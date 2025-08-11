@@ -1,10 +1,10 @@
 import { useEffect } from "react"
 import type { KeyStatistics } from "@/pages/index/types/statistics"
-import { DEV_SERVER_URL } from "@/shared/constants/DEV_URLS"
+import { getBaseApiUrl } from "@/shared/api/getBaseApiUrl"
 
 export function useSEO(statistics: KeyStatistics) {
   useEffect(() => {
-    document.title = `Keyboard Stats: ${statistics.totalPresses} presses | ${statistics.pressesPerMinute}/min`
+    document.title = `Keyboard Stats: ${statistics.totalPresses || 0} presses | ${statistics.pressesPerMinute || 0}/min`
 
     const metaDescription = document.querySelector('meta[name="description"]')
     if (metaDescription) {
@@ -47,9 +47,10 @@ export function useSEO(statistics: KeyStatistics) {
   }, [statistics])
 
   useEffect(() => {
+    const apiUrl = getBaseApiUrl()
     const link = document.createElement("link")
     link.rel = "prefetch"
-    link.href = `${DEV_SERVER_URL}/api/keyboard/statistics`
+    link.href = `${apiUrl}/api/keyboard/statistics`
     document.head.appendChild(link)
 
     return () => {

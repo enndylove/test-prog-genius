@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { KEYBOARD_LAYOUT } from "../types/keyboard"
 import { SIZE_CLASSES } from "../types/styles"
 
@@ -21,9 +21,13 @@ export function LiveKeyboardVisualizer({ lastKeyPressed, keyFrequency }: LiveKey
   const normalizeKey = (key: string) => key.toLowerCase()
   const getPressCount = (key: string) => keyFrequency[key] || keyFrequency[normalizeKey(key)] || keyFrequency[key.toUpperCase()] || 0
 
+  const maxCount = useMemo(() => {
+    const values = Object.values(keyFrequency)
+    return values.length > 0 ? Math.max(...values) : 1
+  }, [keyFrequency])
+
   const getKeyIntensity = (key: string) => {
     const count = getPressCount(key)
-    const maxCount = Math.max(...Object.values(keyFrequency), 1)
     return Math.min(count / maxCount, 1)
   }
 
