@@ -8,7 +8,7 @@ export class KeyPress {
   @Column()
   key!: string
 
-  @Column({ type: "datetime" })
+  @Column({ type: "timestamp" })
   timestamp!: Date
 
   @CreateDateColumn()

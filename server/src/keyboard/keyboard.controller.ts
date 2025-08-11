@@ -1,17 +1,19 @@
-import { Controller, Get } from "@nestjs/common"
+import { Controller, Get, Req, Res } from "@nestjs/common"
 import type { KeyboardService } from "./keyboard.service"
+import type { Request, Response } from "express"
+import type { KeyStatistics } from "src/types/statistics"
 
 @Controller("api/keyboard")
 export class KeyboardController {
   constructor(private readonly keyboardService: KeyboardService) {}
 
   @Get("statistics")
-  async getStatistics(req: any, res: any) {
+  async getStatistics() {
     return await this.keyboardService.getStatistics()
   }
 
   @Get("statistics/ssr")
-  async getStatisticsForSSR(req: any, res: any) {
+  async getStatisticsForSSR(@Req() req: Request, @Res() res: Response) {
     try {
       const statistics = await this.keyboardService.getStatisticsForSSR()
       const userAgent = req.get("User-Agent") || ""
@@ -30,7 +32,7 @@ export class KeyboardController {
     }
   }
 
-  private generateSEOHTML(statistics: any): string {
+  private generateSEOHTML(statistics: KeyStatistics): string {
     const topKeys = Object.entries(statistics.keyFrequency)
       .sort(([, a], [, b]) => (b as number) - (a as number))
       .slice(0, 5)

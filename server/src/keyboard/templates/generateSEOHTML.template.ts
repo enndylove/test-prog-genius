@@ -1,4 +1,6 @@
-export function generateSEOHTMLTemplatestatistics(statistics: any) {
+import type { KeyStatistics } from "src/types/statistics";
+
+export function generateSEOHTMLTemplatestatistics(statistics: KeyStatistics) {
   return `
     <!DOCTYPE html>
     <html lang="en">

@@ -10,7 +10,7 @@ import { KeyboardModule } from "./keyboard/keyboard.module"
       type: "postgres",
       url: process.env.DATABASE_URL,
       entities: [KeyPress],
-      synchronize: true, // Only for dev, auto-creates tables
+      synchronize: process.env.NODE_ENV === 'development',
       logging: ["error", "warn"],
       autoLoadEntities: true,
     }),

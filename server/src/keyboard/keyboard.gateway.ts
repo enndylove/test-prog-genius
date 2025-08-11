@@ -7,16 +7,17 @@ import {
 } from "@nestjs/websockets"
 import type { Server, Socket } from "socket.io"
 import type { KeyboardService } from "./keyboard.service"
+import { DEV_CLIENT_IP_URL, DEV_CLIENT_URL } from "src/constants/dev.constants"
 
 @WebSocketGateway({
   cors: {
-    origin: ["http://localhost:3000", "http://127.0.0.1:3000"],
+    origin: [DEV_CLIENT_URL, DEV_CLIENT_IP_URL],
     credentials: true,
   },
 })
 export class KeyboardGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
-  server: Server
+  server!: Server
 
   constructor(private readonly keyboardService: KeyboardService) {}
 

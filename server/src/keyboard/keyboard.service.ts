@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common"
 import type { Repository } from "typeorm"
-import type { KeyPress } from "./entities/key-press.entity"
+import { KeyPress } from "./entities/key-press.entity"
+import { InjectRepository } from "@nestjs/typeorm"
 
 export interface KeyStatistics {
   totalPresses: number
@@ -13,11 +14,10 @@ export interface KeyStatistics {
 
 @Injectable()
 export class KeyboardService {
-  private readonly keyPressRepository: Repository<KeyPress>
-
-  constructor(keyPressRepository: Repository<KeyPress>) {
-    this.keyPressRepository = keyPressRepository
-  }
+  constructor(
+    @InjectRepository(KeyPress)
+    private readonly keyPressRepository: Repository<KeyPress>
+  ) {}
 
   async saveKeyPress(key: string, timestamp: number): Promise<KeyPress> {
     const keyPress = this.keyPressRepository.create({
