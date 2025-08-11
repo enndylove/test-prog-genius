@@ -1,11 +1,12 @@
 import { Injectable, type OnModuleInit } from "@nestjs/common"
 import type { Repository } from "typeorm"
+import type { KeyPress } from "../keyboard/entities/key-press.entity"
 
 @Injectable()
 export class DatabaseService implements OnModuleInit {
-  private readonly keyPressRepository: Repository<any> // @TODO: key-press.entity
+  private readonly keyPressRepository: Repository<KeyPress>
 
-  constructor(keyPressRepository: Repository<any>) { // @TODO: key-press.entity
+  constructor(keyPressRepository: Repository<KeyPress>) {
     this.keyPressRepository = keyPressRepository
   }
 
