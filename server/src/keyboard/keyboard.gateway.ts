@@ -6,7 +6,7 @@ import {
   WebSocketServer,
 } from "@nestjs/websockets"
 import type { Server, Socket } from "socket.io"
-import type { KeyboardService } from "./keyboard.service"
+import { KeyboardService } from "./keyboard.service"
 import { DEV_CLIENT_IP_URL, DEV_CLIENT_URL } from "src/constants/dev.constants"
 
 @WebSocketGateway({

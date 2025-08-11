@@ -1,5 +1,5 @@
 import { Controller, Get, Req, Res } from "@nestjs/common"
-import type { KeyboardService } from "./keyboard.service"
+import { KeyboardService } from "./keyboard.service"
 import type { Request, Response } from "express"
 import type { KeyStatistics } from "src/types/statistics"
 

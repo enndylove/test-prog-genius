@@ -1,20 +1,21 @@
-import { Module } from "@nestjs/common"
-import { TypeOrmModule } from "@nestjs/typeorm"
-import { KeyPress } from "./keyboard/entities/key-press.entity"
-import { KeyboardModule } from "./keyboard/keyboard.module"
-
+import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { KeyboardModule } from './keyboard/keyboard.module';
+import { KeyPress } from './keyboard/entities/key-press.entity';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
-      type: "postgres",
+      type: 'postgres',
       url: process.env.DATABASE_URL,
       entities: [KeyPress],
       synchronize: process.env.NODE_ENV === 'development',
-      logging: ["error", "warn"],
+      logging: ['error', 'warn'],
       autoLoadEntities: true,
     }),
-    KeyboardModule
+    KeyboardModule,
   ],
 })
 export class AppModule {}
