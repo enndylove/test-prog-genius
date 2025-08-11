@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as ErrorImport } from './routes/error'
 import { Route as RootIndexImport } from './routes/root/index'
+import { Route as PagesIndexIndexImport } from './routes/pages/index/index'
 
 // Create/Update Routes
 
@@ -25,6 +26,12 @@ const ErrorRoute = ErrorImport.update({
 const RootIndexRoute = RootIndexImport.update({
   id: '/root/',
   path: '/root/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PagesIndexIndexRoute = PagesIndexIndexImport.update({
+  id: '/pages/index/',
+  path: '/pages/index/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -46,6 +53,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RootIndexImport
       parentRoute: typeof rootRoute
     }
+    '/pages/index/': {
+      id: '/pages/index/'
+      path: '/pages/index'
+      fullPath: '/pages/index'
+      preLoaderRoute: typeof PagesIndexIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -54,36 +68,41 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/error': typeof ErrorRoute
   '/root': typeof RootIndexRoute
+  '/pages/index': typeof PagesIndexIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/error': typeof ErrorRoute
   '/root': typeof RootIndexRoute
+  '/pages/index': typeof PagesIndexIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/error': typeof ErrorRoute
   '/root/': typeof RootIndexRoute
+  '/pages/index/': typeof PagesIndexIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/error' | '/root'
+  fullPaths: '/error' | '/root' | '/pages/index'
   fileRoutesByTo: FileRoutesByTo
-  to: '/error' | '/root'
-  id: '__root__' | '/error' | '/root/'
+  to: '/error' | '/root' | '/pages/index'
+  id: '__root__' | '/error' | '/root/' | '/pages/index/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   ErrorRoute: typeof ErrorRoute
   RootIndexRoute: typeof RootIndexRoute
+  PagesIndexIndexRoute: typeof PagesIndexIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   ErrorRoute: ErrorRoute,
   RootIndexRoute: RootIndexRoute,
+  PagesIndexIndexRoute: PagesIndexIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,7 +116,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/error",
-        "/root/"
+        "/root/",
+        "/pages/index/"
       ]
     },
     "/error": {
@@ -105,6 +125,9 @@ export const routeTree = rootRoute
     },
     "/root/": {
       "filePath": "root/index.tsx"
+    },
+    "/pages/index/": {
+      "filePath": "pages/index/index.ts"
     }
   }
 }
