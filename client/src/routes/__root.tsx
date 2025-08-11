@@ -1,10 +1,11 @@
 import { createRouter } from "@tanstack/react-router";
 import { queryClient, rootRoute } from "./root";
 import { ErrorComponent } from "./error";
+import { rootRouter } from "./pages/index";
 
 
 const routeTree = rootRoute.addChildren([
-
+  rootRouter
 ]);
 
 const router = createRouter({
