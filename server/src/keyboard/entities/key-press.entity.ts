@@ -1,16 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
 
 @Entity("key_presses")
 export class KeyPress {
   @PrimaryGeneratedColumn()
-  id!: number
+  id!: number;
 
   @Column()
-  key!: string
+  key!: string;
 
   @Column({ type: "timestamp" })
-  timestamp!: Date
+  timestamp!: Date;
 
   @CreateDateColumn()
-  createdAt!: Date
+  createdAt!: Date;
 }
