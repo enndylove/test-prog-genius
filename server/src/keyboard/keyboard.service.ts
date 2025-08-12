@@ -2,15 +2,7 @@ import { Injectable } from "@nestjs/common"
 import type { Repository } from "typeorm"
 import { KeyPress } from "./entities/key-press.entity"
 import { InjectRepository } from "@nestjs/typeorm"
-
-export interface KeyStatistics {
-  totalPresses: number
-  keyFrequency: Record<string, number>
-  recentPresses: Array<{ key: string; timestamp: number }>
-  pressesPerMinute: number
-  mostPressedKey: string
-  uniqueKeys: number
-}
+import { KeyStatistics } from "src/types/statistics"
 
 @Injectable()
 export class KeyboardService {
